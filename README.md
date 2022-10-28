@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/msjf5kpqa78227kb?svg=true)](https://ci.appveyor.com/project/NikitaBez/hw3-testingwebinterface)
