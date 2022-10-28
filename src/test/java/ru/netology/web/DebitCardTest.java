@@ -37,7 +37,12 @@ public class DebitCardTest {
 
     @BeforeEach
     void setUp(){
-        driver=new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+//        driver=new ChromeDriver();
     }
 
     @AfterEach
@@ -47,26 +52,18 @@ public class DebitCardTest {
     }
 
     @Test
-    void shouldTestPositiveDataForm() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+    void shouldTestPositiveDataForm() {
+
         driver.get("http://localhost:9999/");
         List<WebElement> list = driver.findElements(By.className("input__control"));
         list.get(0).sendKeys("Безменов Никита");
-        sleep(800);
+
         list.get(1).sendKeys("+79145556677");
-        sleep(800);
 
         driver.findElement(By.className("checkbox__box")).click();
-        sleep(800);
         driver.findElement(By.className("button__content")).click();
-        sleep(800);
 
         String text = driver.findElement(By.className("Success_successBlock__2L3Cw")).getText();
-        sleep(800);
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
