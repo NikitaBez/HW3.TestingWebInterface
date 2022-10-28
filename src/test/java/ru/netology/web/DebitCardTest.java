@@ -1,6 +1,7 @@
 package ru.netology.web;
 
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +23,15 @@ public class DebitCardTest {
 
     @BeforeAll
     static void setUpAll(){
-        if (System.getProperty("os.name").contains("Linux")) {
-            System.setProperty("webdriver.chrome.driver", "driver/linux/chromedriver");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "driver/win10/chromedriver.exe");
-        }
+        WebDriverManager.chromedriver().setup();
     }
+
+
+//        if (System.getProperty("os.name").contains("Linux")) {
+//            System.setProperty("webdriver.chrome.driver", "driver/linux/chromedriver");
+//        } else {
+//            System.setProperty("webdriver.chrome.driver", "driver/win10/chromedriver.exe");
+//        }
 
 
     @BeforeEach
