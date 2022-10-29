@@ -14,7 +14,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebitCardTest {
@@ -27,14 +26,6 @@ public class DebitCardTest {
         WebDriverManager.chromedriver().setup();
     }
 
-
-//        if (System.getProperty("os.name").contains("Linux")) {
-//            System.setProperty("webdriver.chrome.driver", "driver/linux/chromedriver");
-//        } else {
-//            System.setProperty("webdriver.chrome.driver", "driver/win10/chromedriver.exe");
-//        }
-
-
     @BeforeEach
     void setUp(){
         ChromeOptions options = new ChromeOptions();
@@ -42,7 +33,7 @@ public class DebitCardTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-//        driver=new ChromeDriver();
+
     }
 
     @AfterEach
@@ -55,15 +46,12 @@ public class DebitCardTest {
     void shouldTestPositiveDataForm() {
 
         driver.get("http://localhost:9999/");
-        List<WebElement> list = driver.findElements(By.className("input__control"));
-        list.get(0).sendKeys("Безменов Никита");
-
-        list.get(1).sendKeys("+79145556677");
-
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Михалков-Кончаловский Никита");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79145556677");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button__content")).click();
 
-        String text = driver.findElement(By.className("Success_successBlock__2L3Cw")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
